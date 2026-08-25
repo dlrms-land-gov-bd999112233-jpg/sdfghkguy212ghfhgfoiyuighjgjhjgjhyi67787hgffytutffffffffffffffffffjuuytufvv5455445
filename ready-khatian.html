@@ -1,28 +1,716 @@
 <!doctype html>
-<html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>রেডি খতিয়ান তৈরি</title><link rel="stylesheet" href="ready-khatian.css"></head>
+<html lang="bn">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>রেডি খতিয়ান তৈরি</title>
+
+  <style>
+
+    *{
+      box-sizing:border-box;
+    }
+
+    html,
+    body{
+      margin:0;
+      padding:0;
+      background:#eef1f4;
+      color:#111;
+      font-family:
+        "Noto Sans Bengali",
+        "Noto Sans Bengali UI",
+        Arial,
+        sans-serif;
+    }
+
+    .page-wrap{
+      width:100%;
+      padding:30px 15px;
+    }
+
+    .editor{
+      width:100%;
+      max-width:900px;
+      margin:0 auto;
+      background:#fff;
+      border-radius:12px;
+      box-shadow:0 4px 20px rgba(0,0,0,.12);
+      padding:28px;
+    }
+
+    .editor h1{
+      margin:0 0 8px;
+      color:#087a3d;
+      font-size:28px;
+    }
+
+    .intro{
+      margin:0 0 25px;
+      color:#666;
+      line-height:1.7;
+      font-size:14px;
+    }
+
+    .section{
+      margin-bottom:22px;
+      padding:20px;
+      background:#fafcfb;
+      border:1px solid #dfe8e2;
+      border-radius:9px;
+    }
+
+    .section h2{
+      margin:0 0 16px;
+      color:#087a3d;
+      font-size:20px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:15px;
+    }
+
+    .full{
+      grid-column:1 / -1;
+    }
+
+    .field{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+
+    .field label{
+      font-weight:700;
+      line-height:1.5;
+    }
+
+    .field input,
+    .field textarea{
+      width:100%;
+      padding:11px 12px;
+      border:1px solid #cfcfcf;
+      border-radius:7px;
+      background:#fff;
+      font:inherit;
+      color:#111;
+      outline:none;
+    }
+
+    .field textarea{
+      min-height:90px;
+      resize:vertical;
+    }
+
+    .field input:focus,
+    .field textarea:focus{
+      border-color:#087a3d;
+      box-shadow:
+        0 0 0 2px rgba(8,122,61,.08);
+    }
+
+    .hint{
+      margin-top:4px;
+      color:#777;
+      font-size:12px;
+      line-height:1.5;
+    }
+
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:22px;
+    }
+
+    .btn{
+      border:0;
+      border-radius:7px;
+      padding:12px 20px;
+      font:inherit;
+      font-weight:700;
+      cursor:pointer;
+      text-decoration:none;
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+    }
+
+    .primary{
+      background:#087a3d;
+      color:#fff;
+    }
+
+    .secondary{
+      background:#eee;
+      color:#222;
+    }
+
+    .msg{
+      display:none;
+      margin-top:18px;
+      padding:12px;
+      border-radius:7px;
+      line-height:1.5;
+    }
+
+    .msg.ok{
+      display:block;
+      background:#e7f7eb;
+      color:#087a3d;
+    }
+
+    .msg.err{
+      display:block;
+      background:#ffe9e9;
+      color:#a40000;
+    }
+
+    .generated{
+      display:none;
+      margin-top:18px;
+      padding:14px;
+      border:1px solid #d5e6ff;
+      background:#f1f7ff;
+      border-radius:8px;
+      word-break:break-all;
+    }
+
+    .generated strong{
+      display:block;
+      margin-bottom:6px;
+    }
+
+    .generated a{
+      color:#075db5;
+      font-weight:700;
+    }
+
+    @media(max-width:700px){
+
+      .page-wrap{
+        padding:15px 10px;
+      }
+
+      .editor{
+        padding:18px;
+      }
+
+      .grid{
+        grid-template-columns:1fr;
+      }
+
+      .full{
+        grid-column:auto;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
 <body>
-<header class="rk-head"><div><b>রেডি খতিয়ান</b><a href="admin.html">অ্যাডমিন প্যানেলে ফিরুন</a></div></header>
-<main class="rk-wrap">
-  <section class="rk-card">
-    <h1>নতুন রেডি খতিয়ান</h1>
-    <p class="muted">ডেমোর মতো সম্পূর্ণ লে-আউট। উপরের শিরোনামসহ সব লেখা আপনি নিজে লিখবেন।</p>
-    <div class="form-grid">
-      <label class="full">সম্পূর্ণ শিরোনাম<input id="title" placeholder="আর এস (জোনাল) খতিয়ান নং- ৩০২"></label>
-      <label>বিভাগ<input id="division"></label><label>জেলা<input id="district"></label><label>উপজেলা/থানা<input id="upazila"></label><label>মৌজা<input id="mouza"></label><label>জে. এল. নং<input id="jl_no"></label><label>রে: সা: নং<input id="record_no"></label>
-      <label class="full">মালিক, অকৃষি প্রজা বা ইজারাদারের নাম ও ঠিকানা<textarea id="owner_address" rows="4"></textarea></label>
-      <label>অংশ<input id="share"></label><label>রাজস্ব<input id="revenue"></label><label>দাগ<input id="dag"></label>
-      <label>কৃষি (ক)<input id="agri"></label><label>অকৃষি (খ)<input id="non_agri"></label>
-      <label>একক - দাগের মোট পরিমাণ<input id="dag_unit"></label><label>শতাংশ - দাগের মোট পরিমাণ<input id="dag_percent"></label>
-      <label>অত্র খতিয়ানের অংশ<input id="record_share"></label><label>একক - অংশনুযায়ী জমির পরিমাণ<input id="area_unit"></label><label>শতাংশ - অংশনুযায়ী জমির পরিমাণ<input id="area_percent"></label>
-      <label class="full">দখল বিষয়ক বা অন্যান্য বিশেষ মন্তব্য<textarea id="remarks" rows="3"></textarea></label>
-      <label>ধারামতে নোট/পরিবর্তন<input id="note1"></label><label>মোকদ্দমা নং<input id="note2"></label><label>এর ফল<input id="note3"></label>
-      <label>নিচের অংশ/মোট জমি (একক)<input id="total_unit"></label><label>নিচের অংশ/মোট জমি (শতাংশ)<input id="total_percent"></label>
-      <label>মুদ্রণ/তারিখ<input id="print_date"></label><label>বাংলাদেশ ফর্ম নং<input id="form_no" value="৫৪৬২ (সংশোধিত)"></label>
-      <label class="full">পৃষ্ঠার তথ্য<input id="page_no" value="পৃষ্ঠা নং: ১ এর ১"></label>
+
+
+<div class="page-wrap">
+
+  <div class="editor">
+
+    <h1>
+      রেডি খতিয়ান তৈরি করুন
+    </h1>
+
+    <p class="intro">
+      নিচের তথ্যগুলো পূরণ করলে আপনার দেওয়া নমুনার
+      অফিসিয়াল খতিয়ান লে-আউটে তথ্য বসানো হবে।
+    </p>
+
+
+    <!-- ==========================================
+         শিরোনাম ও উপরের তথ্য
+    =========================================== -->
+
+    <div class="section">
+
+      <h2>
+        ১. শিরোনাম ও উপরের তথ্য
+      </h2>
+
+      <div class="grid">
+
+        <div class="field full">
+
+          <label for="title">
+            সম্পূর্ণ শিরোনাম
+          </label>
+
+          <input
+            id="title"
+            type="text"
+            placeholder="আর এস (জোনাল) খতিয়ান নং- ৩০২"
+          >
+
+          <div class="hint">
+            এখানে আপনি সম্পূর্ণ শিরোনাম নিজে লিখবেন।
+          </div>
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="division">
+            বিভাগ
+          </label>
+
+          <input
+            id="division"
+            type="text"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="district">
+            জেলা
+          </label>
+
+          <input
+            id="district"
+            type="text"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="upazila">
+            উপজেলা/থানা
+          </label>
+
+          <input
+            id="upazila"
+            type="text"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="mouza">
+            মৌজা
+          </label>
+
+          <input
+            id="mouza"
+            type="text"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="jl_no">
+            জে. এল. নং
+          </label>
+
+          <input
+            id="jl_no"
+            type="text"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="record_no">
+            রে. সা. নং
+          </label>
+
+          <input
+            id="record_no"
+            type="text"
+          >
+
+        </div>
+
+
+        <div class="field full">
+
+          <label for="source_url">
+            সাধারণ খতিয়ানের লিংক
+          </label>
+
+          <input
+            id="source_url"
+            type="url"
+            placeholder="https://.../index.html?id=123"
+          >
+
+          <div class="hint">
+            QR Code-এর মধ্যে শুধুমাত্র এই লিংক থাকবে।
+          </div>
+
+        </div>
+
+      </div>
+
     </div>
-    <div class="actions"><button id="save">সংরক্ষণ ও রেডি খতিয়ান তৈরি</button><a href="admin.html">বাতিল</a></div>
-    <div id="msg" class="msg"></div>
-  </section>
-</main>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script src="ready-khatian.js"></script>
-</body></html>
+
+
+    <!-- ==========================================
+         মূল টেবিল
+    =========================================== -->
+
+    <div class="section">
+
+      <h2>
+        ২. মূল খতিয়ানের তথ্য
+      </h2>
+
+      <div class="grid">
+
+        <div class="field full">
+
+          <label for="owner_address">
+            মালিক, অকৃষি প্রজা বা ইজারাদারের নাম ও ঠিকানা
+          </label>
+
+          <textarea
+            id="owner_address"
+          ></textarea>
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="share">
+            অংশ
+          </label>
+
+          <input
+            id="share"
+            type="text"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="revenue">
+            রাজস্ব
+          </label>
+
+          <input
+            id="revenue"
+            type="text"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="dag">
+            দাগ
+          </label>
+
+          <input
+            id="dag"
+            type="text"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="agri">
+            কৃষি
+          </label>
+
+          <input
+            id="agri"
+            type="text"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="non_agri">
+            অকৃষি
+          </label>
+
+          <input
+            id="non_agri"
+            type="text"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="dag_unit">
+            দাগের মোট পরিমাণ — একক
+          </label>
+
+          <input
+            id="dag_unit"
+            type="text"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="dag_percent">
+            দাগের মোট পরিমাণ — শতাংশ
+          </label>
+
+          <input
+            id="dag_percent"
+            type="text"
+          >
+
+        </div>
+
+
+        <div class="field full">
+
+          <label for="record_share">
+            অত্র খতিয়ানের অংশ
+          </label>
+
+          <input
+            id="record_share"
+            type="text"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="area_unit">
+            অংশানুযায়ী জমির পরিমাণ — একক
+          </label>
+
+          <input
+            id="area_unit"
+            type="text"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="area_percent">
+            অংশানুযায়ী জমির পরিমাণ — শতাংশ
+          </label>
+
+          <input
+            id="area_percent"
+            type="text"
+          >
+
+        </div>
+
+
+        <div class="field full">
+
+          <label for="remarks">
+            দখল বিষয়ক বা অন্যান্য বিশেষ মন্তব্য
+          </label>
+
+          <textarea
+            id="remarks"
+          ></textarea>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         নিচের তথ্য
+    =========================================== -->
+
+    <div class="section">
+
+      <h2>
+        ৩. নিচের তথ্য
+      </h2>
+
+      <div class="grid">
+
+        <div class="field full">
+
+          <label for="note1">
+            নিচের নোট / পরিবর্তন / মোকদ্দমা সংক্রান্ত লেখা
+          </label>
+
+          <textarea
+            id="note1"
+          ></textarea>
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="total_unit">
+            মোট জমি — একক
+          </label>
+
+          <input
+            id="total_unit"
+            type="text"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="total_percent">
+            মোট জমি — শতাংশ
+          </label>
+
+          <input
+            id="total_percent"
+            type="text"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="print_date">
+            মুদ্রণ / তারিখ
+          </label>
+
+          <input
+            id="print_date"
+            type="text"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="form_no">
+            বাংলাদেশ ফর্ম নং
+          </label>
+
+          <input
+            id="form_no"
+            type="text"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="page_no">
+            পৃষ্ঠা নং
+          </label>
+
+          <input
+            id="page_no"
+            type="text"
+          >
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div
+      id="ready-msg"
+      class="msg"
+    ></div>
+
+
+    <div
+      id="generated"
+      class="generated"
+    >
+
+      <strong>
+        রেডি খতিয়ানের লিংক
+      </strong>
+
+      <a
+        id="generated-link"
+        href="#"
+        target="_blank"
+        rel="noopener"
+      ></a>
+
+    </div>
+
+
+    <div class="actions">
+
+      <button
+        id="save-ready"
+        type="button"
+        class="btn primary"
+      >
+        রেডি খতিয়ান তৈরি করুন
+      </button>
+
+
+      <a
+        href="admin.html"
+        class="btn secondary"
+      >
+        অ্যাডমিনে ফিরে যান
+      </a>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="config.js?v=50"></script>
+
+<script src="ready-khatian.js?v=50"></script>
+
+</body>
+</html>
