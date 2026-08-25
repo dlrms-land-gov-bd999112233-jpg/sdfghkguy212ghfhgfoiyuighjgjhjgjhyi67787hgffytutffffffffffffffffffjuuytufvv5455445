@@ -1,55 +1,69 @@
-```javascript
 (function () {
 
   "use strict";
 
   const cfg = window.APP_CONFIG || {};
 
-  const loginCard =
-    document.getElementById("login-card");
+  const loginCard = document.getElementById("login-card");
+  const editorCard = document.getElementById("editor-card");
+  const loginMsg = document.getElementById("login-msg");
+  const readyMsg = document.getElementById("ready-msg");
+  const readyHistory = document.getElementById("ready-history");
 
-  const editorCard =
-    document.getElementById("editor-card");
-
-  const loginMsg =
-    document.getElementById("login-msg");
-
-  const readyMsg =
-    document.getElementById("ready-msg");
-
-  const readyHistory =
-    document.getElementById("ready-history");
+  const loginButton = document.getElementById("login");
+  const logoutButton = document.getElementById("logout");
 
 
-  /* =====================================================
+  function showMessage(element, text, ok) {
+    if (!element) return;
+
+    element.textContent = text;
+    element.className = "msg " + (ok ? "ok" : "err");
+  }
+
+
+  function clearMessage(element) {
+    if (!element) return;
+
+    element.textContent = "";
+    element.className = "msg";
+  }
+
+
+  /* =========================================
      CONFIG CHECK
-  ===================================================== */
+  ========================================= */
 
-  const valid =
-    cfg.SUPABASE_URL &&
-    cfg.SUPABASE_ANON_KEY &&
-    cfg.ADMIN_EMAIL &&
-    window.supabase;
+  if (
+    !cfg.SUPABASE_URL ||
+    !cfg.SUPABASE_ANON_KEY
+  ) {
 
-  if (!valid) {
-
-    if (loginMsg) {
-
-      loginMsg.className =
-        "msg err";
-
-      loginMsg.textContent =
-        "config.js সঠিকভাবে সেট করা হয়নি।";
-
-    }
+    showMessage(
+      loginMsg,
+      "config.js পাওয়া যাচ্ছে না অথবা Supabase তথ্য অসম্পূর্ণ।",
+      false
+    );
 
     return;
   }
 
 
-  /* =====================================================
-     SUPABASE
-  ===================================================== */
+  if (!window.supabase) {
+
+    showMessage(
+      loginMsg,
+      "Supabase JavaScript লোড হয়নি।",
+      false
+    );
+
+    return;
+  }
+
+
+  /* =========================================
+     SUPABASE CLIENT
+  ========================================= */
 
   const client =
     window.supabase.createClient(
@@ -58,77 +72,37 @@
     );
 
 
-  /* =====================================================
-     MESSAGE
-  ===================================================== */
-
-  function showMessage(
-    element,
-    text,
-    ok
-  ) {
-
-    if (!element) {
-      return;
-    }
-
-    element.textContent =
-      text;
-
-    element.className =
-      "msg " +
-      (ok ? "ok" : "err");
-
-  }
-
-
-  function clearMessage(element) {
-
-    if (!element) {
-      return;
-    }
-
-    element.textContent = "";
-    element.className = "msg";
-
-  }
-
-
-  /* =====================================================
+  /* =========================================
      READY KHATIAN URL
-  ===================================================== */
+  ========================================= */
 
   function getReadyUrl(id) {
 
-    const currentPath =
+    const path =
       window.location.pathname;
 
-    const basePath =
-      currentPath
-        .substring(
-          0,
-          currentPath.lastIndexOf("/") + 1
-        );
+    const base =
+      path.substring(
+        0,
+        path.lastIndexOf("/") + 1
+      );
 
     return (
       window.location.origin +
-      basePath +
+      base +
       "ready-khatian-view.html?id=" +
       encodeURIComponent(id)
     );
-
   }
 
 
-  /* =====================================================
-     LOAD READY KHATIAN LIST
-  ===================================================== */
+  /* =========================================
+     LOAD READY LIST
+  ========================================= */
 
   async function loadReadyHistory() {
 
-    if (!readyHistory) {
-      return;
-    }
+    if (!readyHistory) return;
 
     clearMessage(readyMsg);
 
@@ -151,8 +125,14 @@
 
       showMessage(
         readyMsg,
+        "ডাটাবেস Error: " +
         result.error.message,
         false
+      );
+
+      console.error(
+        "READY KHATIAN ERROR:",
+        result.error
       );
 
       return;
@@ -164,96 +144,78 @@
 
     const rows =
       (result.data || [])
-        .filter(function (record) {
-
-          return (
-            record.is_deleted !== true
-          );
-
+        .filter(function (item) {
+          return item.is_deleted !== true;
         });
 
 
-    if (!rows.length) {
+    if (rows.length === 0) {
 
-      const tr =
-        document.createElement("tr");
-
-      tr.innerHTML =
-        '<td colspan="6" class="empty">' +
+      readyHistory.innerHTML =
+        '<tr>' +
+        '<td colspan="7" class="empty">' +
         'এখনও কোনো রেডি খতিয়ান তৈরি হয়নি' +
-        '</td>';
-
-      readyHistory.appendChild(tr);
+        '</td>' +
+        '</tr>';
 
       return;
     }
 
 
-    rows.forEach(
-      function (record) {
+    rows.forEach(function (record) {
 
-        const tr =
-          document.createElement("tr");
+      const tr =
+        document.createElement("tr");
 
 
-        /* ID */
+      function makeTd(value) {
 
-        const idTd =
+        const td =
           document.createElement("td");
 
-        idTd.textContent =
-          record.id ?? "";
+        td.textContent =
+          value ?? "";
 
-        tr.appendChild(idTd);
-
-
-        /* TITLE */
-
-        const titleTd =
-          document.createElement("td");
-
-        titleTd.textContent =
-          record.title ?? "";
-
-        tr.appendChild(titleTd);
+        return td;
+      }
 
 
-        /* OWNER */
-
-        const ownerTd =
-          document.createElement("td");
-
-        ownerTd.textContent =
-          record.owner_address ?? "";
-
-        tr.appendChild(ownerTd);
+      tr.appendChild(
+        makeTd(record.id)
+      );
 
 
-        /* MOUZA */
-
-        const mouzaTd =
-          document.createElement("td");
-
-        mouzaTd.textContent =
-          record.mouza ?? "";
-
-        tr.appendChild(mouzaTd);
+      tr.appendChild(
+        makeTd(record.title)
+      );
 
 
-        /* QR / SOURCE URL */
+      tr.appendChild(
+        makeTd(record.owner_address)
+      );
 
-        const urlTd =
-          document.createElement("td");
 
-        urlTd.className =
-          "url-cell";
+      tr.appendChild(
+        makeTd(record.mouza)
+      );
 
+
+      /* SOURCE URL */
+
+      const sourceTd =
+        document.createElement("td");
+
+      sourceTd.className =
+        "url-cell";
+
+
+      if (record.source_url) {
 
         const sourceLink =
           document.createElement("a");
 
         sourceLink.href =
-          record.source_url || "#";
+          record.source_url;
 
         sourceLink.target =
           "_blank";
@@ -262,200 +224,206 @@
           "noopener noreferrer";
 
         sourceLink.textContent =
-          record.source_url
-            ? "সাধারণ খতিয়ানের লিংক"
-            : "লিংক নেই";
+          "সাধারণ খতিয়ান";
 
-
-        if (!record.source_url) {
-
-          sourceLink.removeAttribute(
-            "target"
-          );
-
-        }
-
-
-        urlTd.appendChild(
+        sourceTd.appendChild(
           sourceLink
         );
 
-        tr.appendChild(urlTd);
+      } else {
+
+        sourceTd.textContent =
+          "লিংক নেই";
+
+      }
 
 
-        /* ACTION */
-
-        const actionTd =
-          document.createElement("td");
-
-
-        const actionWrap =
-          document.createElement("div");
-
-        actionWrap.className =
-          "action-wrap";
+      tr.appendChild(
+        sourceTd
+      );
 
 
-        /* VIEW */
+      /* READY URL */
 
-        const viewButton =
-          document.createElement("button");
+      const readyTd =
+        document.createElement("td");
 
-        viewButton.type =
-          "button";
-
-        viewButton.className =
-          "small-btn view-btn";
-
-        viewButton.textContent =
-          "দেখুন";
+      readyTd.className =
+        "url-cell";
 
 
-        viewButton.onclick =
-          function () {
+      const readyUrl =
+        getReadyUrl(
+          record.id
+        );
 
-            const url =
-              getReadyUrl(
+
+      const readyLink =
+        document.createElement("a");
+
+      readyLink.href =
+        readyUrl;
+
+      readyLink.target =
+        "_blank";
+
+      readyLink.rel =
+        "noopener noreferrer";
+
+      readyLink.textContent =
+        "রেডি খতিয়ান";
+
+
+      readyTd.appendChild(
+        readyLink
+      );
+
+      tr.appendChild(
+        readyTd
+      );
+
+
+      /* ACTION */
+
+      const actionTd =
+        document.createElement("td");
+
+      const wrap =
+        document.createElement("div");
+
+      wrap.className =
+        "action-wrap";
+
+
+      const viewButton =
+        document.createElement("button");
+
+      viewButton.type =
+        "button";
+
+      viewButton.className =
+        "small-btn view-btn";
+
+      viewButton.textContent =
+        "দেখুন";
+
+
+      viewButton.onclick =
+        function () {
+
+          window.open(
+            readyUrl,
+            "_blank"
+          );
+
+        };
+
+
+      const deleteButton =
+        document.createElement("button");
+
+      deleteButton.type =
+        "button";
+
+      deleteButton.className =
+        "small-btn delete-btn";
+
+      deleteButton.textContent =
+        "ডিলেট";
+
+
+      deleteButton.onclick =
+        async function () {
+
+          const ok =
+            window.confirm(
+              "এই রেডি খতিয়ানটি ডিলেট করবেন?\n\n" +
+              "ডিলেট করলে এর URL আর কাজ করবে না।"
+            );
+
+
+          if (!ok) return;
+
+
+          deleteButton.disabled =
+            true;
+
+          deleteButton.textContent =
+            "ডিলেট হচ্ছে...";
+
+
+          const deleted =
+            await client
+              .from("ready_khatian")
+              .delete()
+              .eq(
+                "id",
                 record.id
               );
 
-            window.open(
-              url,
-              "_blank",
-              "noopener"
+
+          if (deleted.error) {
+
+            window.alert(
+              "ডিলেট করা যায়নি:\n\n" +
+              deleted.error.message
             );
-
-          };
-
-
-        /* DELETE */
-
-        const deleteButton =
-          document.createElement("button");
-
-        deleteButton.type =
-          "button";
-
-        deleteButton.className =
-          "small-btn delete-btn";
-
-        deleteButton.textContent =
-          "ডিলেট";
-
-
-        deleteButton.onclick =
-          async function () {
-
-            const confirmed =
-              window.confirm(
-                "এই রেডি খতিয়ানটি ডিলেট করবেন?\n\n" +
-                "ডিলেট করার পর এই রেডি খতিয়ানের URL আর কাজ করবে না।"
-              );
-
-
-            if (!confirmed) {
-              return;
-            }
-
 
             deleteButton.disabled =
-              true;
+              false;
 
             deleteButton.textContent =
-              "ডিলেট হচ্ছে...";
+              "ডিলেট";
+
+            return;
+          }
 
 
-            const deleted =
-              await client
-                .from("ready_khatian")
-                .delete()
-                .eq(
-                  "id",
-                  record.id
-                );
+          await loadReadyHistory();
+
+        };
 
 
-            if (deleted.error) {
+      wrap.appendChild(
+        viewButton
+      );
 
-              window.alert(
-                "ডিলেট করা যায়নি:\n\n" +
-                deleted.error.message
-              );
+      wrap.appendChild(
+        deleteButton
+      );
 
-              deleteButton.disabled =
-                false;
+      actionTd.appendChild(
+        wrap
+      );
 
-              deleteButton.textContent =
-                "ডিলেট";
-
-              return;
-            }
-
-
-            showMessage(
-              readyMsg,
-              "✅ রেডি খতিয়ান সফলভাবে ডিলেট হয়েছে।",
-              true
-            );
+      tr.appendChild(
+        actionTd
+      );
 
 
-            await loadReadyHistory();
+      readyHistory.appendChild(
+        tr
+      );
 
-          };
-
-
-        actionWrap.appendChild(
-          viewButton
-        );
-
-        actionWrap.appendChild(
-          deleteButton
-        );
-
-
-        actionTd.appendChild(
-          actionWrap
-        );
-
-        tr.appendChild(
-          actionTd
-        );
-
-
-        readyHistory.appendChild(
-          tr
-        );
-
-      }
-    );
+    });
 
   }
 
 
-  /* =====================================================
+  /* =========================================
      LOGIN
-  ===================================================== */
+  ========================================= */
 
-  async function login() {
+  async function doLogin() {
 
     clearMessage(loginMsg);
 
 
     const emailInput =
-      document.getElementById(
-        "email"
-      );
+      document.getElementById("email");
 
     const passwordInput =
-      document.getElementById(
-        "password"
-      );
-
-
-    const loginButton =
-      document.getElementById(
-        "login"
-      );
+      document.getElementById("password");
 
 
     const email =
@@ -474,7 +442,7 @@
 
       showMessage(
         loginMsg,
-        "ইমেইল দিন।",
+        "ইমেইল লিখুন।",
         false
       );
 
@@ -486,24 +454,7 @@
 
       showMessage(
         loginMsg,
-        "পাসওয়ার্ড দিন।",
-        false
-      );
-
-      return;
-    }
-
-
-    if (
-      email.toLowerCase() !==
-      String(
-        cfg.ADMIN_EMAIL
-      ).toLowerCase()
-    ) {
-
-      showMessage(
-        loginMsg,
-        "এই ইমেইলটি অনুমোদিত অ্যাডমিন ইমেইল নয়।",
+        "পাসওয়ার্ড লিখুন।",
         false
       );
 
@@ -520,18 +471,35 @@
 
     try {
 
+      console.log(
+        "Supabase URL:",
+        cfg.SUPABASE_URL
+      );
+
+      console.log(
+        "Login Email:",
+        email
+      );
+
+
       const result =
-        await client.auth
-          .signInWithPassword({
-            email: email,
-            password: password
-          });
+        await client.auth.signInWithPassword({
+          email: email,
+          password: password
+        });
+
+
+      console.log(
+        "LOGIN RESULT:",
+        result
+      );
 
 
       if (result.error) {
 
         showMessage(
           loginMsg,
+          "Supabase Error: " +
           result.error.message,
           false
         );
@@ -540,15 +508,42 @@
       }
 
 
-      const session =
-        result.data.session;
-
-
-      if (!session) {
+      if (!result.data.session) {
 
         showMessage(
           loginMsg,
-          "লগইন session পাওয়া যায়নি।",
+          "Login হয়েছে, কিন্তু session পাওয়া যায়নি।",
+          false
+        );
+
+        return;
+      }
+
+
+      const loggedEmail =
+        (
+          result.data.session.user.email ||
+          ""
+        ).toLowerCase();
+
+
+      /*
+        Login হওয়ার পর Admin Email যাচাই
+      */
+
+      if (
+        cfg.ADMIN_EMAIL &&
+        loggedEmail !==
+        String(
+          cfg.ADMIN_EMAIL
+        ).toLowerCase()
+      ) {
+
+        await client.auth.signOut();
+
+        showMessage(
+          loginMsg,
+          "Login সফল হয়েছে, কিন্তু এই email Admin হিসেবে অনুমোদিত নয়।",
           false
         );
 
@@ -565,18 +560,25 @@
 
       await loadReadyHistory();
 
+
     } catch (error) {
 
       console.error(
-        "Login error:",
+        "LOGIN EXCEPTION:",
         error
       );
 
+
       showMessage(
         loginMsg,
-        "Supabase-এর সাথে সংযোগ করা যাচ্ছে না।",
+        "Connection Error: " +
+        (
+          error.message ||
+          "Supabase-এর সাথে সংযোগ করা যাচ্ছে না।"
+        ),
         false
       );
+
 
     } finally {
 
@@ -591,15 +593,9 @@
   }
 
 
-  /* =====================================================
+  /* =========================================
      LOGOUT
-  ===================================================== */
-
-  const logoutButton =
-    document.getElementById(
-      "logout"
-    );
-
+  ========================================= */
 
   if (logoutButton) {
 
@@ -617,34 +613,26 @@
   }
 
 
-  /* =====================================================
+  /* =========================================
      LOGIN BUTTON
-  ===================================================== */
-
-  const loginButton =
-    document.getElementById(
-      "login"
-    );
-
+  ========================================= */
 
   if (loginButton) {
 
     loginButton.addEventListener(
       "click",
-      login
+      doLogin
     );
 
   }
 
 
-  /* =====================================================
+  /* =========================================
      ENTER KEY
-  ===================================================== */
+  ========================================= */
 
   const passwordInput =
-    document.getElementById(
-      "password"
-    );
+    document.getElementById("password");
 
 
   if (passwordInput) {
@@ -653,13 +641,8 @@
       "keydown",
       function (event) {
 
-        if (
-          event.key ===
-          "Enter"
-        ) {
-
-          login();
-
+        if (event.key === "Enter") {
+          doLogin();
         }
 
       }
@@ -668,9 +651,9 @@
   }
 
 
-  /* =====================================================
+  /* =========================================
      EXISTING SESSION
-  ===================================================== */
+  ========================================= */
 
   client.auth
     .getSession()
@@ -680,7 +663,7 @@
         if (result.error) {
 
           console.error(
-            "Session error:",
+            "SESSION ERROR:",
             result.error
           );
 
@@ -692,12 +675,10 @@
           result.data.session;
 
 
-        if (!session) {
-          return;
-        }
+        if (!session) return;
 
 
-        const email =
+        const loggedEmail =
           (
             session.user.email ||
             ""
@@ -705,7 +686,8 @@
 
 
         if (
-          email !==
+          cfg.ADMIN_EMAIL &&
+          loggedEmail !==
           String(
             cfg.ADMIN_EMAIL
           ).toLowerCase()
@@ -727,17 +709,6 @@
         await loadReadyHistory();
 
       }
-    )
-    .catch(
-      function (error) {
-
-        console.error(
-          "Session error:",
-          error
-        );
-
-      }
     );
 
 })();
-```
