@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="bn">
-
 <head>
 
   <meta charset="utf-8">
@@ -13,7 +12,6 @@
   <title>রেডি খতিয়ান তৈরি</title>
 
   <style>
-
     *{
       box-sizing:border-box;
     }
@@ -22,7 +20,7 @@
     body{
       margin:0;
       padding:0;
-      background:#eef1f4;
+      background:#f3f5f8;
       color:#111;
       font-family:
         "Noto Sans Bengali",
@@ -31,46 +29,49 @@
         sans-serif;
     }
 
-    .page-wrap{
-      width:100%;
-      padding:30px 15px;
+    body{
+      min-height:100vh;
     }
 
-    .editor{
+    .wrap{
       width:100%;
-      max-width:900px;
-      margin:0 auto;
+      max-width:1100px;
+      margin:30px auto;
+      padding:0 15px;
+    }
+
+    .card{
       background:#fff;
       border-radius:12px;
-      box-shadow:0 4px 20px rgba(0,0,0,.12);
+      box-shadow:0 3px 18px rgba(0,0,0,.10);
       padding:28px;
     }
 
-    .editor h1{
+    h1{
       margin:0 0 8px;
       color:#087a3d;
-      font-size:28px;
+      font-size:29px;
+    }
+
+    h2{
+      margin:0 0 18px;
+      color:#087a3d;
+      font-size:20px;
     }
 
     .intro{
       margin:0 0 25px;
       color:#666;
-      line-height:1.7;
       font-size:14px;
+      line-height:1.7;
     }
 
     .section{
-      margin-bottom:22px;
+      margin-top:20px;
       padding:20px;
-      background:#fafcfb;
       border:1px solid #dfe8e2;
       border-radius:9px;
-    }
-
-    .section h2{
-      margin:0 0 16px;
-      color:#087a3d;
-      font-size:20px;
+      background:#fafcfb;
     }
 
     .grid{
@@ -86,7 +87,7 @@
     .field{
       display:flex;
       flex-direction:column;
-      gap:6px;
+      gap:7px;
     }
 
     .field label{
@@ -98,7 +99,7 @@
     .field textarea{
       width:100%;
       padding:11px 12px;
-      border:1px solid #cfcfcf;
+      border:1px solid #ccc;
       border-radius:7px;
       background:#fff;
       font:inherit;
@@ -107,19 +108,17 @@
     }
 
     .field textarea{
-      min-height:90px;
+      min-height:95px;
       resize:vertical;
     }
 
     .field input:focus,
     .field textarea:focus{
       border-color:#087a3d;
-      box-shadow:
-        0 0 0 2px rgba(8,122,61,.08);
+      box-shadow:0 0 0 2px rgba(8,122,61,.08);
     }
 
     .hint{
-      margin-top:4px;
       color:#777;
       font-size:12px;
       line-height:1.5;
@@ -129,20 +128,20 @@
       display:flex;
       flex-wrap:wrap;
       gap:10px;
-      margin-top:22px;
+      margin-top:24px;
     }
 
     .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
       border:0;
       border-radius:7px;
-      padding:12px 20px;
+      padding:12px 19px;
       font:inherit;
       font-weight:700;
-      cursor:pointer;
       text-decoration:none;
-      display:inline-flex;
-      justify-content:center;
-      align-items:center;
+      cursor:pointer;
     }
 
     .primary{
@@ -155,53 +154,60 @@
       color:#222;
     }
 
-    .msg{
-      display:none;
-      margin-top:18px;
-      padding:12px;
-      border-radius:7px;
-      line-height:1.5;
+    .primary:disabled{
+      opacity:.6;
+      cursor:not-allowed;
     }
 
-    .msg.ok{
+    .message{
+      display:none;
+      margin-top:18px;
+      padding:12px 14px;
+      border-radius:7px;
+      line-height:1.6;
+      font-size:14px;
+    }
+
+    .message.ok{
       display:block;
       background:#e7f7eb;
       color:#087a3d;
     }
 
-    .msg.err{
+    .message.error{
       display:block;
       background:#ffe9e9;
       color:#a40000;
     }
 
-    .generated{
+    .url-box{
       display:none;
       margin-top:18px;
       padding:14px;
-      border:1px solid #d5e6ff;
       background:#f1f7ff;
+      border:1px solid #d5e6ff;
       border-radius:8px;
       word-break:break-all;
     }
 
-    .generated strong{
+    .url-box strong{
       display:block;
       margin-bottom:6px;
     }
 
-    .generated a{
+    .url-box a{
       color:#075db5;
       font-weight:700;
     }
 
     @media(max-width:700px){
 
-      .page-wrap{
-        padding:15px 10px;
+      .wrap{
+        margin:15px auto;
+        padding:0 10px;
       }
 
-      .editor{
+      .card{
         padding:18px;
       }
 
@@ -213,39 +219,39 @@
         grid-column:auto;
       }
 
-    }
+      .actions{
+        flex-direction:column;
+      }
 
+      .actions .btn{
+        width:100%;
+      }
+    }
   </style>
 
 </head>
 
-
 <body>
 
+<div class="wrap">
 
-<div class="page-wrap">
+  <div class="card">
 
-  <div class="editor">
-
-    <h1>
-      রেডি খতিয়ান তৈরি করুন
-    </h1>
+    <h1>নতুন রেডি খতিয়ান তৈরি করুন</h1>
 
     <p class="intro">
-      নিচের তথ্যগুলো পূরণ করলে আপনার দেওয়া নমুনার
-      অফিসিয়াল খতিয়ান লে-আউটে তথ্য বসানো হবে।
+      নিচের তথ্যগুলো সংরক্ষণ করার পর নির্দিষ্ট রেডি খতিয়ানের লিংক তৈরি হবে।
+      QR Code-এ শুধুমাত্র সাধারণ খতিয়ানের লিংক ব্যবহার করা হবে।
     </p>
 
 
-    <!-- ==========================================
-         শিরোনাম ও উপরের তথ্য
-    =========================================== -->
+    <!-- =========================================
+         উপরের তথ্য
+    ========================================== -->
 
     <div class="section">
 
-      <h2>
-        ১. শিরোনাম ও উপরের তথ্য
-      </h2>
+      <h2>১. উপরের তথ্য</h2>
 
       <div class="grid">
 
@@ -262,7 +268,7 @@
           >
 
           <div class="hint">
-            এখানে আপনি সম্পূর্ণ শিরোনাম নিজে লিখবেন।
+            এখানে সম্পূর্ণ শিরোনাম আপনি নিজে লিখবেন।
           </div>
 
         </div>
@@ -361,11 +367,11 @@
           <input
             id="source_url"
             type="url"
-            placeholder="https://.../index.html?id=123"
+            placeholder="https://example.github.io/project/index.html?id=123"
           >
 
           <div class="hint">
-            QR Code-এর মধ্যে শুধুমাত্র এই লিংক থাকবে।
+            QR Code-এর মধ্যে শুধুমাত্র এই URL যাবে।
           </div>
 
         </div>
@@ -375,15 +381,13 @@
     </div>
 
 
-    <!-- ==========================================
-         মূল টেবিল
-    =========================================== -->
+    <!-- =========================================
+         মূল তথ্য
+    ========================================== -->
 
     <div class="section">
 
-      <h2>
-        ২. মূল খতিয়ানের তথ্য
-      </h2>
+      <h2>২. মূল খতিয়ানের তথ্য</h2>
 
       <div class="grid">
 
@@ -557,15 +561,13 @@
     </div>
 
 
-    <!-- ==========================================
+    <!-- =========================================
          নিচের তথ্য
-    =========================================== -->
+    ========================================== -->
 
     <div class="section">
 
-      <h2>
-        ৩. নিচের তথ্য
-      </h2>
+      <h2>৩. নিচের তথ্য</h2>
 
       <div class="grid">
 
@@ -657,22 +659,22 @@
 
 
     <div
-      id="ready-msg"
-      class="msg"
+      id="message"
+      class="message"
     ></div>
 
 
     <div
-      id="generated"
-      class="generated"
+      id="url-box"
+      class="url-box"
     >
 
       <strong>
-        রেডি খতিয়ানের লিংক
+        রেডি খতিয়ানের লিংক:
       </strong>
 
       <a
-        id="generated-link"
+        id="ready-url"
         href="#"
         target="_blank"
         rel="noopener"
@@ -684,7 +686,7 @@
     <div class="actions">
 
       <button
-        id="save-ready"
+        id="save"
         type="button"
         class="btn primary"
       >
@@ -708,9 +710,402 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<script src="config.js?v=50"></script>
+<script src="config.js?v=60"></script>
 
-<script src="ready-khatian.js?v=50"></script>
+
+<script>
+
+(function () {
+
+  "use strict";
+
+
+  const cfg =
+    window.APP_CONFIG || {};
+
+
+  const message =
+    document.getElementById("message");
+
+  const saveButton =
+    document.getElementById("save");
+
+  const urlBox =
+    document.getElementById("url-box");
+
+  const readyUrl =
+    document.getElementById("ready-url");
+
+
+  const fieldNames = [
+
+    "title",
+    "division",
+    "district",
+    "upazila",
+    "mouza",
+    "jl_no",
+    "record_no",
+    "source_url",
+    "owner_address",
+    "share",
+    "revenue",
+    "dag",
+    "agri",
+    "non_agri",
+    "dag_unit",
+    "dag_percent",
+    "record_share",
+    "area_unit",
+    "area_percent",
+    "remarks",
+    "note1",
+    "total_unit",
+    "total_percent",
+    "print_date",
+    "form_no",
+    "page_no"
+
+  ];
+
+
+  function showMessage(
+    text,
+    ok
+  ) {
+
+    message.textContent =
+      text;
+
+    message.className =
+      ok
+        ? "message ok"
+        : "message error";
+
+  }
+
+
+  if (
+    !cfg.SUPABASE_URL ||
+    !cfg.SUPABASE_ANON_KEY
+  ) {
+
+    showMessage(
+      "config.js সঠিকভাবে পাওয়া যাচ্ছে না।",
+      false
+    );
+
+    saveButton.disabled = true;
+
+    return;
+  }
+
+
+  if (!window.supabase) {
+
+    showMessage(
+      "Supabase library লোড হয়নি।",
+      false
+    );
+
+    saveButton.disabled = true;
+
+    return;
+  }
+
+
+  const client =
+    window.supabase.createClient(
+      cfg.SUPABASE_URL,
+      cfg.SUPABASE_ANON_KEY
+    );
+
+
+  async function checkLogin() {
+
+    const result =
+      await client.auth.getSession();
+
+
+    if (
+      result.error ||
+      !result.data.session
+    ) {
+
+      showMessage(
+        "Admin login পাওয়া যায়নি। আগে Admin Panel-এ লগইন করুন।",
+        false
+      );
+
+      saveButton.disabled = true;
+
+      return false;
+    }
+
+
+    const email =
+      (
+        result.data.session.user.email ||
+        ""
+      ).toLowerCase();
+
+
+    if (
+      cfg.ADMIN_EMAIL &&
+      email !==
+      String(
+        cfg.ADMIN_EMAIL
+      ).toLowerCase()
+    ) {
+
+      showMessage(
+        "এই account অনুমোদিত Admin নয়।",
+        false
+      );
+
+      saveButton.disabled = true;
+
+      return false;
+    }
+
+
+    return true;
+
+  }
+
+
+  checkLogin()
+    .catch(
+      function (error) {
+
+        console.error(error);
+
+        showMessage(
+          "Admin session যাচাই করা যাচ্ছে না।",
+          false
+        );
+
+        saveButton.disabled = true;
+
+      }
+    );
+
+
+  async function saveKhatian() {
+
+    message.className =
+      "message";
+
+    message.textContent =
+      "";
+
+
+    const loggedIn =
+      await checkLogin();
+
+
+    if (!loggedIn) {
+      return;
+    }
+
+
+    const row = {};
+
+
+    for (
+      const name of fieldNames
+    ) {
+
+      const element =
+        document.getElementById(name);
+
+
+      if (!element) {
+        continue;
+      }
+
+
+      const value =
+        element.value.trim();
+
+
+      row[name] =
+        value;
+
+    }
+
+
+    if (!row.title) {
+
+      showMessage(
+        "সম্পূর্ণ শিরোনাম লিখুন।",
+        false
+      );
+
+      document
+        .getElementById("title")
+        .focus();
+
+      return;
+    }
+
+
+    if (!row.source_url) {
+
+      showMessage(
+        "সাধারণ খতিয়ানের লিংক দিন।",
+        false
+      );
+
+      document
+        .getElementById("source_url")
+        .focus();
+
+      return;
+    }
+
+
+    try {
+
+      const parsed =
+        new URL(
+          row.source_url
+        );
+
+
+      if (
+        parsed.protocol !==
+          "http:" &&
+        parsed.protocol !==
+          "https:"
+      ) {
+
+        throw new Error();
+
+      }
+
+    } catch (error) {
+
+      showMessage(
+        "সাধারণ খতিয়ানের লিংক সঠিক URL নয়।",
+        false
+      );
+
+      return;
+
+    }
+
+
+    saveButton.disabled =
+      true;
+
+    saveButton.textContent =
+      "সংরক্ষণ হচ্ছে...";
+
+
+    try {
+
+      const result =
+        await client
+          .from("ready_khatian")
+          .insert([row])
+          .select()
+          .single();
+
+
+      if (result.error) {
+
+        console.error(
+          result.error
+        );
+
+        showMessage(
+          "Database Error: " +
+          result.error.message,
+          false
+        );
+
+        return;
+      }
+
+
+      const id =
+        result.data.id;
+
+
+      const currentPath =
+        window.location.pathname;
+
+
+      const folder =
+        currentPath.substring(
+          0,
+          currentPath.lastIndexOf("/") + 1
+        );
+
+
+      const publicUrl =
+        window.location.origin +
+        folder +
+        "ready-khatian-view.html?id=" +
+        encodeURIComponent(
+          id
+        );
+
+
+      readyUrl.href =
+        publicUrl;
+
+      readyUrl.textContent =
+        publicUrl;
+
+      urlBox.style.display =
+        "block";
+
+
+      showMessage(
+        "✅ রেডি খতিয়ান সফলভাবে তৈরি হয়েছে।",
+        true
+      );
+
+
+    } catch (error) {
+
+      console.error(
+        error
+      );
+
+      showMessage(
+        "রেডি খতিয়ান তৈরি করা যায়নি: " +
+        (
+          error.message ||
+          "Unknown error"
+        ),
+        false
+      );
+
+    } finally {
+
+      saveButton.disabled =
+        false;
+
+      saveButton.textContent =
+        "রেডি খতিয়ান তৈরি করুন";
+
+    }
+
+  }
+
+
+  saveButton.addEventListener(
+    "click",
+    saveKhatian
+  );
+
+
+})();
+
+</script>
 
 </body>
 </html>
