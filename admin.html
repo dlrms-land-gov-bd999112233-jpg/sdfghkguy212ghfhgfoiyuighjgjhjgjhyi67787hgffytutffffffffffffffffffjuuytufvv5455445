@@ -1,21 +1,34 @@
+```html
 <!doctype html>
 <html lang="bn">
 
 <head>
+
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
 
   <title>রেডি খতিয়ান — অ্যাডমিন</title>
 
-  <link rel="stylesheet" href="admin.css?v=11">
+  <link
+    rel="stylesheet"
+    href="admin.css?v=30"
+  >
+
 </head>
+
 
 <body>
 
+
 <div class="admin-wrap">
 
+
   <!-- =====================================================
-       LOGIN
+       LOGIN CARD
   ====================================================== -->
 
   <section
@@ -23,10 +36,13 @@
     id="login-card"
   >
 
-    <h1>অ্যাডমিন লগইন</h1>
+    <h1>
+      অ্যাডমিন লগইন
+    </h1>
+
 
     <p class="muted">
-      অনুমোদিত অ্যাডমিন দিয়ে রেডি খতিয়ান তৈরি ও পরিচালনা করুন।
+      অনুমোদিত অ্যাডমিন দিয়ে রেডি খতিয়ান তৈরি করুন।
     </p>
 
 
@@ -72,8 +88,8 @@
 
       <button
         id="login"
-        class="btn primary"
         type="button"
+        class="btn primary"
       >
         লগইন
       </button>
@@ -91,8 +107,10 @@
   </section>
 
 
+
   <!-- =====================================================
-       ADMIN PANEL
+       THIS CONTENT IS ONLY A FALLBACK
+       Login success redirects to ready-khatian.html
   ====================================================== -->
 
   <section
@@ -101,154 +119,55 @@
     style="display:none"
   >
 
-    <div class="topbar">
+    <h1>
+      রেডি খতিয়ান
+    </h1>
 
-      <div>
-
-        <h1>
-          রেডি খতিয়ান
-        </h1>
-
-        <p class="muted">
-          এখানে শুধুমাত্র রেডি খতিয়ান তৈরি ও পরিচালনা করা হবে।
-        </p>
-
-      </div>
+    <p class="muted">
+      লগইন সফল হয়েছে।
+    </p>
 
 
-      <button
-        id="logout"
-        class="btn danger"
-        type="button"
-      >
-        লগআউট
-      </button>
-
-    </div>
-
-
-    <!-- =====================================================
-         NEW READY KHATIAN
-    ====================================================== -->
-
-    <div class="new-box">
-
-      <div>
-
-        <h2>
-          নতুন রেডি খতিয়ান
-        </h2>
-
-        <p class="muted">
-          আপনার দেওয়া তথ্য অনুযায়ী অফিসিয়াল খতিয়ানের
-          লে-আউটে নতুন রেডি খতিয়ান তৈরি হবে।
-          QR Code-এ শুধুমাত্র সাধারণ খতিয়ানের লিংক থাকবে।
-        </p>
-
-      </div>
-
-
-      <a
-        href="ready-khatian.html"
-        class="btn primary"
-      >
-        ＋ রেডি খতিয়ান তৈরি করুন
-      </a>
-
-    </div>
-
-
-    <!-- =====================================================
-         MESSAGE
-    ====================================================== -->
-
-    <div
-      id="ready-msg"
-      class="msg"
-    ></div>
-
-
-    <!-- =====================================================
-         READY KHATIAN LIST
-    ====================================================== -->
-
-    <h2>
-      রেডি খতিয়ানের তালিকা
-    </h2>
-
-
-    <div class="table-wrap">
-
-      <table>
-
-        <thead>
-
-          <tr>
-
-            <th>ID</th>
-
-            <th>শিরোনাম</th>
-
-            <th>মালিক</th>
-
-            <th>মৌজা</th>
-
-            <th>সাধারণ খতিয়ানের লিংক</th>
-
-            <th>রেডি খতিয়ানের লিংক</th>
-
-            <th>অ্যাকশন</th>
-
-          </tr>
-
-        </thead>
-
-
-        <tbody id="ready-history"></tbody>
-
-      </table>
-
-    </div>
-
-
-    <!-- =====================================================
-         BOTTOM
-    ====================================================== -->
-
-    <div class="bottom-actions">
-
-      <a
-        href="index.html"
-        class="btn secondary"
-      >
-        ওয়েবসাইট দেখুন
-      </a>
-
-    </div>
+    <a
+      href="ready-khatian.html"
+      class="btn primary"
+    >
+      রেডি খতিয়ান তৈরি করুন
+    </a>
 
   </section>
 
+
 </div>
+
 
 
 <!-- =====================================================
      SUPABASE
 ====================================================== -->
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
 
 
 <!-- =====================================================
      CONFIG
 ====================================================== -->
 
-<script src="config.js?v=11"></script>
+<script src="config.js?v=30"></script>
+
 
 
 <!-- =====================================================
-     ADMIN JAVASCRIPT
+     ADMIN JS
 ====================================================== -->
 
-<script src="admin.js?v=11"></script>
+<script src="admin.js?v=30"></script>
+
 
 </body>
+
+</html>
+```
