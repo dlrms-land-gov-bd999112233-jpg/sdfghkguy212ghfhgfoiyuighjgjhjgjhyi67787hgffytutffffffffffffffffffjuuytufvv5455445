@@ -1,34 +1,21 @@
-```html
 <!doctype html>
 <html lang="bn">
 
 <head>
-
   <meta charset="utf-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>রেডি খতিয়ান — অ্যাডমিন</title>
 
-  <link
-    rel="stylesheet"
-    href="admin.css"
-  >
-
+  <link rel="stylesheet" href="admin.css?v=11">
 </head>
-
 
 <body>
 
-
 <div class="admin-wrap">
 
-
   <!-- =====================================================
-       ADMIN LOGIN
+       LOGIN
   ====================================================== -->
 
   <section
@@ -36,10 +23,7 @@
     id="login-card"
   >
 
-    <h1>
-      অ্যাডমিন লগইন
-    </h1>
-
+    <h1>অ্যাডমিন লগইন</h1>
 
     <p class="muted">
       অনুমোদিত অ্যাডমিন দিয়ে রেডি খতিয়ান তৈরি ও পরিচালনা করুন।
@@ -56,7 +40,7 @@
         id="email"
         type="email"
         autocomplete="username"
-        value="itsmeshuy00001@gmail.com"
+        value="itsmeshuvo0001@gmail.com"
       >
 
     </div>
@@ -107,7 +91,6 @@
   </section>
 
 
-
   <!-- =====================================================
        ADMIN PANEL
   ====================================================== -->
@@ -115,12 +98,10 @@
   <section
     class="admin-card"
     id="editor-card"
-    hidden
+    style="display:none"
   >
 
-
     <div class="topbar">
-
 
       <div>
 
@@ -143,9 +124,7 @@
         লগআউট
       </button>
 
-
     </div>
-
 
 
     <!-- =====================================================
@@ -154,37 +133,29 @@
 
     <div class="new-box">
 
-
       <div>
 
         <h2>
           নতুন রেডি খতিয়ান
         </h2>
 
-
         <p class="muted">
-
-          আপনার দেওয়া তথ্য অনুযায়ী
-          অফিসিয়াল খতিয়ানের লে-আউটে রেডি খতিয়ান তৈরি হবে।
-
-          QR Code-এ শুধুমাত্র
-          সাধারণ খতিয়ানের লিংক থাকবে।
-
+          আপনার দেওয়া তথ্য অনুযায়ী অফিসিয়াল খতিয়ানের
+          লে-আউটে নতুন রেডি খতিয়ান তৈরি হবে।
+          QR Code-এ শুধুমাত্র সাধারণ খতিয়ানের লিংক থাকবে।
         </p>
 
       </div>
 
 
       <a
-        class="btn primary"
         href="ready-khatian.html"
+        class="btn primary"
       >
         ＋ রেডি খতিয়ান তৈরি করুন
       </a>
 
-
     </div>
-
 
 
     <!-- =====================================================
@@ -195,7 +166,6 @@
       id="ready-msg"
       class="msg"
     ></div>
-
 
 
     <!-- =====================================================
@@ -209,57 +179,36 @@
 
     <div class="table-wrap">
 
-
       <table>
-
 
         <thead>
 
           <tr>
 
-            <th>
-              ID
-            </th>
+            <th>ID</th>
 
-            <th>
-              শিরোনাম
-            </th>
+            <th>শিরোনাম</th>
 
-            <th>
-              মালিক
-            </th>
+            <th>মালিক</th>
 
-            <th>
-              মৌজা
-            </th>
+            <th>মৌজা</th>
 
-            <th>
-              সাধারণ খতিয়ানের লিংক
-            </th>
+            <th>সাধারণ খতিয়ানের লিংক</th>
 
-            <th>
-              রেডি খতিয়ানের লিংক
-            </th>
+            <th>রেডি খতিয়ানের লিংক</th>
 
-            <th>
-              অ্যাকশন
-            </th>
+            <th>অ্যাকশন</th>
 
           </tr>
 
         </thead>
 
 
-        <tbody
-          id="ready-history"
-        ></tbody>
-
+        <tbody id="ready-history"></tbody>
 
       </table>
 
-
     </div>
-
 
 
     <!-- =====================================================
@@ -268,7 +217,6 @@
 
     <div class="bottom-actions">
 
-
       <a
         href="index.html"
         class="btn secondary"
@@ -276,43 +224,31 @@
         ওয়েবসাইট দেখুন
       </a>
 
-
     </div>
-
 
   </section>
 
-
 </div>
-
 
 
 <!-- =====================================================
      SUPABASE
 ====================================================== -->
 
-<script
-  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-></script>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
 <!-- =====================================================
      CONFIG
 ====================================================== -->
 
-<script src="config.js?v=2"></script>
-
+<script src="config.js?v=11"></script>
 
 
 <!-- =====================================================
      ADMIN JAVASCRIPT
 ====================================================== -->
 
-<script src="admin.js?v=2"></script>
-
+<script src="admin.js?v=11"></script>
 
 </body>
-
-</html>
-```
