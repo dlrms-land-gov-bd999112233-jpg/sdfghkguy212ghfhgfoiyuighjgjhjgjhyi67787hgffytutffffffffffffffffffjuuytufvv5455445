@@ -4,103 +4,41 @@
 
   const cfg = window.APP_CONFIG || {};
 
-  const loginCard =
-    document.getElementById("login-card");
-
-  const loginMsg =
-    document.getElementById("login-msg");
-
-  const loginButton =
-    document.getElementById("login");
-
-
-  function showMessage(text) {
-
-    if (!loginMsg) {
-      return;
-    }
-
-    loginMsg.textContent = text;
-    loginMsg.className = "msg err";
-  }
-
-
-  /* =========================================
-     CONFIG
-  ========================================= */
-
-  if (
-    !cfg.SUPABASE_URL ||
-    !cfg.SUPABASE_ANON_KEY
-  ) {
-
-    showMessage(
-      "config.js সঠিকভাবে সেট করা হয়নি।"
-    );
-
-    return;
-  }
-
-
-  if (!window.supabase) {
-
-    showMessage(
-      "Supabase library লোড হয়নি।"
-    );
-
-    return;
-  }
-
-
-  /* =========================================
-     SUPABASE
-  ========================================= */
-
   const client =
     window.supabase.createClient(
       cfg.SUPABASE_URL,
       cfg.SUPABASE_ANON_KEY
     );
 
+  const loginButton =
+    document.getElementById("login");
 
-  /* =========================================
-     LOGIN
-  ========================================= */
+  const loginMsg =
+    document.getElementById("login-msg");
 
-  async function doLogin() {
 
-    if (!loginButton) {
-      return;
-    }
+  function showError(text) {
 
-    const emailInput =
-      document.getElementById("email");
+    if (!loginMsg) return;
 
-    const passwordInput =
-      document.getElementById("password");
+    loginMsg.textContent = text;
+    loginMsg.className = "msg err";
+  }
 
+
+  async function login() {
 
     const email =
-      emailInput.value.trim();
+      document.getElementById("email").value.trim();
 
     const password =
-      passwordInput.value;
+      document.getElementById("password").value;
 
 
-    if (!email) {
+    if (!email || !password) {
 
-      showMessage(
-        "ইমেইল লিখুন।"
-      );
-
-      return;
-    }
-
-
-    if (!password) {
-
-      showMessage(
-        "পাসওয়ার্ড লিখুন।"
+      showError(
+        "ইমেইল এবং পাসওয়ার্ড দিন।"
       );
 
       return;
@@ -108,9 +46,7 @@
 
 
     loginButton.disabled = true;
-
-    loginButton.textContent =
-      "লগইন হচ্ছে...";
+    loginButton.textContent = "লগইন হচ্ছে...";
 
 
     try {
@@ -124,7 +60,7 @@
 
       if (result.error) {
 
-        showMessage(
+        showError(
           result.error.message
         );
 
@@ -132,118 +68,53 @@
       }
 
 
-      if (!result.data.session) {
+      /*
+        LOGIN SUCCESS
 
-        showMessage(
-          "Login session পাওয়া যায়নি।"
-        );
+        এবার একই folder-এর ready-khatian.html খুলবে।
+      */
 
-        return;
-      }
-
-
-      const loggedEmail =
-        (
-          result.data.session.user.email ||
-          ""
-        ).toLowerCase();
+      const target =
+        new URL(
+          "./ready-khatian.html",
+          window.location.href
+        ).href;
 
 
-      const adminEmail =
-        String(
-          cfg.ADMIN_EMAIL || ""
-        ).toLowerCase();
+      console.log(
+        "READY KHATIAN URL:",
+        target
+      );
 
 
-      if (
-        adminEmail &&
-        loggedEmail !== adminEmail
-      ) {
-
-        await client.auth.signOut();
-
-        showMessage(
-          "এই Email Admin হিসেবে অনুমোদিত নয়।"
-        );
-
-        return;
-      }
-
-
-      /* =====================================
-         LOGIN SUCCESS
-         সরাসরি READY KHATIAN PAGE
-      ====================================== */
-
-      window.location.href =
-        "ready-khatian.html";
+      window.location.assign(
+        target
+      );
 
 
     } catch (error) {
 
-      console.error(
-        "LOGIN ERROR:",
-        error
-      );
+      console.error(error);
 
-
-      showMessage(
+      showError(
         error.message ||
         "Login করা যাচ্ছে না।"
       );
 
-
     } finally {
 
-      loginButton.disabled =
-        false;
-
-      loginButton.textContent =
-        "লগইন";
+      loginButton.disabled = false;
+      loginButton.textContent = "লগইন";
 
     }
 
   }
 
 
-  /* =========================================
-     LOGIN BUTTON
-  ========================================= */
-
-  if (loginButton) {
-
-    loginButton.addEventListener(
-      "click",
-      doLogin
-    );
-
-  }
-
-
-  /* =========================================
-     ENTER KEY
-  ========================================= */
-
-  const passwordInput =
-    document.getElementById("password");
-
-
-  if (passwordInput) {
-
-    passwordInput.addEventListener(
-      "keydown",
-      function (event) {
-
-        if (event.key === "Enter") {
-
-          doLogin();
-
-        }
-
-      }
-    );
-
-  }
+  loginButton.addEventListener(
+    "click",
+    login
+  );
 
 
 })();
