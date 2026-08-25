@@ -1,0 +1,14 @@
+<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>অ্যাডমিন প্যানেল — খতিয়ান</title><link rel="stylesheet" href="admin.css"></head><body>
+<div class="admin-wrap">
+  <section class="admin-card" id="login-card"><h1>অ্যাডমিন লগইন</h1><p>নতুন প্রজেক্টের অনুমোদিত অ্যাডমিন দিয়ে প্রবেশ করুন।</p><label>ইমেইল<input id="email" type="email"></label><label>পাসওয়ার্ড<input id="password" type="password"></label><div id="login-msg" class="msg"></div><button id="login">লগইন</button><a href="index.html" class="ghost">হোম</a></section>
+  <section class="admin-card" id="editor-card" style="display:none">
+    <h1>খতিয়ান অ্যাডমিন প্যানেল</h1>
+    <div class="tabs"><button class="tab active" data-tab="normal">সাধারণ খতিয়ান</button><button class="tab" data-tab="ready">রেডি খতিয়ান</button></div>
+    <div id="normal-tab" class="tab-panel active">
+      <h2>নতুন সাধারণ খতিয়ান</h2><div class="grid" id="normal-fields"></div><div id="save-msg" class="msg"></div><button id="save-normal">সংযুক্ত করুন</button><h2>সংযুক্ত খতিয়ানের তালিকা</h2><div class="table-wrap"><table><thead><tr><th>ID</th><th>খতিয়ান</th><th>মালিক</th><th>দাগ</th><th>মৌজা</th><th>URL</th><th>অ্যাকশন</th></tr></thead><tbody id="normal-history"></tbody></table></div>
+    </div>
+    <div id="ready-tab" class="tab-panel"><a href="ready-khatian.html" class="ready-link">📄 রেডি খতিয়ান তৈরি করুন</a><h2>রেডি খতিয়ানের তালিকা</h2><div class="table-wrap"><table><thead><tr><th>ID</th><th>খতিয়ান</th><th>মালিক</th><th>মৌজা</th><th>URL</th><th>অ্যাকশন</th></tr></thead><tbody id="ready-history"></tbody></table></div></div>
+    <div class="bottom"><button id="logout" class="ghost">লগআউট</button><a href="index.html" class="ghost">ওয়েবসাইট দেখুন</a></div>
+  </section>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script src="admin.js"></script></body></html>

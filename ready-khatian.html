@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>রেডি খতিয়ান তৈরি</title><link rel="stylesheet" href="ready-khatian.css"></head>
+<body>
+<header class="rk-head"><div><b>রেডি খতিয়ান</b><a href="admin.html">অ্যাডমিন প্যানেলে ফিরুন</a></div></header>
+<main class="rk-wrap">
+  <section class="rk-card">
+    <h1>নতুন রেডি খতিয়ান</h1>
+    <p class="muted">ডেমোর মতো সম্পূর্ণ লে-আউট। উপরের শিরোনামসহ সব লেখা আপনি নিজে লিখবেন।</p>
+    <div class="form-grid">
+      <label class="full">সম্পূর্ণ শিরোনাম<input id="title" placeholder="আর এস (জোনাল) খতিয়ান নং- ৩০২"></label>
+      <label>বিভাগ<input id="division"></label><label>জেলা<input id="district"></label><label>উপজেলা/থানা<input id="upazila"></label><label>মৌজা<input id="mouza"></label><label>জে. এল. নং<input id="jl_no"></label><label>রে: সা: নং<input id="record_no"></label>
+      <label class="full">মালিক, অকৃষি প্রজা বা ইজারাদারের নাম ও ঠিকানা<textarea id="owner_address" rows="4"></textarea></label>
+      <label>অংশ<input id="share"></label><label>রাজস্ব<input id="revenue"></label><label>দাগ<input id="dag"></label>
+      <label>কৃষি (ক)<input id="agri"></label><label>অকৃষি (খ)<input id="non_agri"></label>
+      <label>একক - দাগের মোট পরিমাণ<input id="dag_unit"></label><label>শতাংশ - দাগের মোট পরিমাণ<input id="dag_percent"></label>
+      <label>অত্র খতিয়ানের অংশ<input id="record_share"></label><label>একক - অংশনুযায়ী জমির পরিমাণ<input id="area_unit"></label><label>শতাংশ - অংশনুযায়ী জমির পরিমাণ<input id="area_percent"></label>
+      <label class="full">দখল বিষয়ক বা অন্যান্য বিশেষ মন্তব্য<textarea id="remarks" rows="3"></textarea></label>
+      <label>ধারামতে নোট/পরিবর্তন<input id="note1"></label><label>মোকদ্দমা নং<input id="note2"></label><label>এর ফল<input id="note3"></label>
+      <label>নিচের অংশ/মোট জমি (একক)<input id="total_unit"></label><label>নিচের অংশ/মোট জমি (শতাংশ)<input id="total_percent"></label>
+      <label>মুদ্রণ/তারিখ<input id="print_date"></label><label>বাংলাদেশ ফর্ম নং<input id="form_no" value="৫৪৬২ (সংশোধিত)"></label>
+      <label class="full">পৃষ্ঠার তথ্য<input id="page_no" value="পৃষ্ঠা নং: ১ এর ১"></label>
+    </div>
+    <div class="actions"><button id="save">সংরক্ষণ ও রেডি খতিয়ান তৈরি</button><a href="admin.html">বাতিল</a></div>
+    <div id="msg" class="msg"></div>
+  </section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script src="ready-khatian.js"></script>
+</body></html>

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>খতিয়ান তথ্য</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="top-strip"><div class="top-inner" id="live-date">তারিখ লোড হচ্ছে...</div></div>
+  <div class="nav-wrap">
+    <div class="nav-inner">
+      <a class="brand" href="index.html" aria-label="হোম"><img src="assets/header-icon.png" alt="ভূমি সেবা"></a>
+      <nav class="main-nav">
+        <a href="index.html">হোম</a>
+        <a href="#">আমাদের সম্পর্কে <span>▼</span></a>
+        <a href="#">জ্ঞাতব্য <span>▼</span></a>
+        <a href="#">পরিপত্র</a>
+        <a href="#">আবেদনের অবস্থা</a>
+        <a href="#">নির্দেশিকা</a>
+        <a href="#">খতিয়ান ও ম্যাপ অনুসন্ধান</a>
+      </nav>
+      <div class="login-tools">
+        <span class="cart">🛒</span>
+        <a class="login" href="admin.html">লগইন⌄</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="record-area">
+    <div class="record-card" id="record-card">
+      <h1>খতিয়ান নং - <span id="khatian">লোড হচ্ছে...</span></h1>
+      <div class="record-row"><b>মালিক</b><span>:</span><strong id="owner">—</strong></div>
+      <div class="record-row"><b>দাগ নং</b><span>:</span><strong id="dag_no">—</strong></div>
+      <div class="record-row"><b>সার্ভে</b><span>:</span><strong id="survey">—</strong></div>
+      <div class="record-row"><b>মৌজা</b><span>:</span><strong id="mouza">—</strong></div>
+      <div class="record-row"><b>উপজেলা</b><span>:</span><strong id="upazila">—</strong></div>
+      <div class="record-row"><b>জেলা</b><span>:</span><strong id="district">—</strong></div>
+      <div class="record-row"><b>বিভাগ</b><span>:</span><strong id="division">—</strong></div>
+      <div class="record-row"><b>তারিখ</b><span>:</span><strong id="record_date">—</strong></div>
+    </div>
+  </section>
+  <div class="divider"></div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <section>
+      <h2>গুরুত্বপূর্ণ লিংক</h2>
+      <div class="two-cols">
+        <ul>
+          <li>বাংলাদেশ জাতীয় তথ্য বাতায়ন</li>
+          <li>ভূমি মন্ত্রণালয়</li>
+          <li>তথ্য অধিদপ্তর (পিআইডি)</li>
+          <li>অভিযোগ প্রতিকার ব্যবস্থা</li>
+        </ul>
+        <ul>
+          <li>সার্ভে টিকেট</li>
+          <li>গোপনীয়তা নীতি</li>
+          <li>সাধারণ জিজ্ঞাসা</li>
+          <li>যোগাযোগ</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="planning">
+      <h2>পরিকল্পনা ও বাস্তবায়ন</h2>
+      <div class="planning-row"><img class="lmap-logo" src="assets/lmap_logo.png" alt="ভূমি ব্যবস্থাপনা অটোমেশন"></div>
+    </section>
+
+    <section class="social">
+      <h2>সামাজিক যোগাযোগ</h2>
+      <div class="store"><span>▶</span><small>GET IT ON<br><b>Google Play</b></small></div>
+      <div class="social-icons">
+        <img src="assets/facebook.png" alt="Facebook">
+        <img src="assets/x.png" alt="X">
+        <img src="assets/instagram.png" alt="Instagram">
+        <img src="assets/youtube.png" alt="YouTube">
+      </div>
+    </section>
+  </div>
+
+  <div class="support">কারিগরি সহায়তায়: <img src="assets/softbd.png" alt="Soft BD Ltd."></div>
+  <div class="copyright">©২০২৬ ভূমি ব্যবস্থাপনা অটোমেশন প্রকল্প</div>
+  <button class="chat" aria-label="চ্যাট">▤</button>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
