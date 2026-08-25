@@ -1,5 +1,5 @@
 window.APP_CONFIG = {
-  SUPABASE_URL: "PASTE_YOUR_NEW_SUPABASE_URL",
-  SUPABASE_ANON_KEY: "PASTE_YOUR_NEW_SUPABASE_PUBLISHABLE_KEY",
-  ADMIN_EMAIL: "PASTE_YOUR_ADMIN_EMAIL"
+  SUPABASE_URL: "https://ltfsopobmmcseekouhd.supabase.co",
+  SUPABASE_ANON_KEY: "sb_publishable_IAXZxM_DmmJlhhavUY7uBQ_uQfhWHQQ",
+  ADMIN_EMAIL: "dlrms.land.gov.bd.999112233@gmail.com"
 };
